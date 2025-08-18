@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-g">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pemutar Musik Acak</title>
+    <!-- Memuat Tailwind CSS untuk styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Memuat Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Menggunakan font Inter sebagai default */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen p-4">
+
+    <!-- Kontainer utama untuk pemutar musik -->
+    <div class="bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-2xl text-center w-full max-w-md border border-gray-700">
+        
+        <!-- Header -->
+        <h1 class="text-2xl sm:text-3xl font-bold mb-2 text-indigo-400">Pemutar Musik Acak</h1>
+        <p class="text-gray-400 mb-6">Klik tombol untuk memainkan lagu acak!</p>
+
+        <!-- Informasi Lagu yang Sedang Diputar -->
+        <div id="song-info" class="mb-6 h-12 flex items-center justify-center">
+            <p class="text-lg font-semibold text-gray-200" id="song-title">Belum ada lagu yang diputar</p>
+        </div>
+
+        <!-- Elemen Audio Player Bawaan HTML5 -->
+        <audio id="audio-player" controls class="w-full mb-6 rounded-lg"></audio>
+
+        <!-- Tombol untuk Memutar Lagu Acak -->
+        <button id="play-random-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 w-full shadow-lg transform hover:scale-105">
+            Putar Lagu Acak
+        </button>
+    </div>
+
+    <script>
+        // --- Daftar Lagu ---
+        // Anda bisa mengganti atau menambahkan lagu di sini.
+        // Pastikan URL-nya adalah link langsung ke file MP3.
+        const songs = [
+            { title: 'SoundHelix Song 1', src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' },
+            { title: 'SoundHelix Song 2', src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' },
+            { title: 'SoundHelix Song 3', src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' },
+            { title: 'SoundHelix Song 8', src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3' },
+            { title: 'Mangu by Fourtwnty', src: 'https://s3.ryzumi.vip/ryzumi-api/13e4ab372f839beb50f58630.mp3' }
+        ];
+
+        // --- Mengambil Elemen dari HTML ---
+        const audioPlayer = document.getElementById('audio-player');
+        const playRandomBtn = document.getElementById('play-random-btn');
+        const songTitleEl = document.getElementById('song-title');
+
+        // Variabel untuk menyimpan indeks lagu yang sedang diputar
+        let currentSongIndex = -1;
+
+        // --- Fungsi untuk Memutar Lagu Acak ---
+        function playRandomSong() {
+            let randomIndex;
+            
+            // Logika untuk memastikan lagu berikutnya berbeda dari yang sekarang
+            // Ini hanya berjalan jika ada lebih dari satu lagu
+            do {
+                randomIndex = Math.floor(Math.random() * songs.length);
+            } while (songs.length > 1 && randomIndex === currentSongIndex);
+
+            // Perbarui indeks lagu saat ini
+            currentSongIndex = randomIndex;
+            const randomSong = songs[currentSongIndex];
+
+            // Tampilkan judul lagu yang sedang diputar
+            songTitleEl.textContent = `Memutar: ${randomSong.title}`;
+            
+            // Atur sumber audio dan mulai mainkan
+            audioPlayer.src = randomSong.src;
+            audioPlayer.play();
+        }
+
+        // --- Event Listener ---
+        // 1. Saat tombol "Putar Lagu Acak" diklik
+        playRandomBtn.addEventListener('click', playRandomSong);
+
+        // 2. Saat lagu saat ini selesai diputar, otomatis putar lagu acak berikutnya
+        audioPlayer.addEventListener('ended', playRandomSong);
+    </script>
+
+</body>
+</html>
