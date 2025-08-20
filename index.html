@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-g">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pemutar Musik Acak</title>
+    <title>Situs Sedang Diperbaiki</title>
     <!-- Memuat Tailwind CSS untuk styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Memuat Google Fonts: Inter -->
+    <!-- Memuat Google Fonts (Inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         /* Menggunakan font Inter sebagai default */
         body {
@@ -17,81 +17,28 @@
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen p-4">
-
-    <!-- Kontainer utama untuk pemutar musik -->
-    <div class="bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-2xl text-center w-full max-w-md border border-gray-700">
+<body class="bg-gray-900 text-white">
+    <!-- Kontainer utama untuk menengahkan konten -->
+    <div class="flex flex-col items-center justify-center min-h-screen p-6 text-center">
         
-        <!-- Header -->
-        <h1 class="text-2xl sm:text-3xl font-bold mb-2 text-indigo-400">Pemutar Musik Acak</h1>
-        <p class="text-gray-400 mb-6">Mau request lagu? Chat ke Owner dan masukkan nama lagu beserta artisnya!</p>
-
-        <!-- Informasi Lagu yang Sedang Diputar -->
-        <div id="song-info" class="mb-6 h-12 flex items-center justify-center">
-            <p class="text-lg font-semibold text-gray-200" id="song-title">Belum ada lagu yang diputar (⁠ ⁠ꈍ⁠ᴗ⁠ꈍ⁠)</p>
+        <!-- Ikon Perkakas (SVG) -->
+        <div class="mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 text-blue-400 animate-spin" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
         </div>
 
-        <!-- Elemen Audio Player Bawaan HTML5 -->
-        <audio id="audio-player" controls class="w-full mb-6 rounded-lg"></audio>
+        <!-- Judul Utama -->
+        <h1 class="text-3xl md:text-5xl font-bold mb-4">
+            Situs Sedang Diperbaiki
+        </h1>
 
-        <!-- Tombol untuk Memutar Lagu Acak -->
-        <button id="play-random-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 w-full shadow-lg transform hover:scale-105">
-            Putar Lagu Acak
-        </button>
+        <!-- Deskripsi Tambahan -->
+        <p class="text-lg md:text-xl text-gray-300 max-w-xl">
+            Mohon maaf atas ketidaknyamanannya. Kami sedang melakukan beberapa pemeliharaan saat ini. Kami akan segera kembali online!
+        </p>
+
     </div>
-
-    <script>
-        // --- Daftar Lagu ---
-        // Anda bisa mengganti atau menambahkan lagu di sini.
-        // Pastikan URL-nya adalah link langsung ke file MP3.
-        const songs = [
-            { title: 'Jiwa Yang Bersedih by Ghea Indrawati', src: 'https://cdn.ypnk.biz.id/yp/51jrl7qh.mp3' },
-            { title: 'Coincidence by Sabrina Carpenter', src: 'https://s3.ryzumi.vip/ryzumi-api/1c523cf373245dfaaf9f0141.mp3' },
-            { title: 'Tak Ada Yang Sepertimu by Rony Parulian', src: 'https://s3.ryzumi.vip/ryzumi-api/b9f4f4c765f5385a82025445.mp3' },
-            { title: 'Mantra by JENNIE', src: 'https://s3.ryzumi.vip/ryzumi-api/fc59f93a55fff1031213cc2a.mp3' },
-            { title: 'Mangu by Fourtwnty', src: 'https://s3.ryzumi.vip/ryzumi-api/13e4ab372f839beb50f58630.mp3' },
-            { title: 'Monolog by Pamungkas (Request by Raisha)', src: 'https://cdn.ypnk.biz.id/yp/r6g5x7wj.mp3' },
-            { title: 'Nina by .Feast', src: 'https://cdn.ypnk.biz.id/yp/r5rdeelg.mp3' }
-            
-        ];
-
-        // --- Mengambil Elemen dari HTML ---
-        const audioPlayer = document.getElementById('audio-player');
-        const playRandomBtn = document.getElementById('play-random-btn');
-        const songTitleEl = document.getElementById('song-title');
-
-        // Variabel untuk menyimpan indeks lagu yang sedang diputar
-        let currentSongIndex = -1;
-
-        // --- Fungsi untuk Memutar Lagu Acak ---
-        function playRandomSong() {
-            let randomIndex;
-            
-            // Logika untuk memastikan lagu berikutnya berbeda dari yang sekarang
-            // Ini hanya berjalan jika ada lebih dari satu lagu
-            do {
-                randomIndex = Math.floor(Math.random() * songs.length);
-            } while (songs.length > 1 && randomIndex === currentSongIndex);
-
-            // Perbarui indeks lagu saat ini
-            currentSongIndex = randomIndex;
-            const randomSong = songs[currentSongIndex];
-
-            // Tampilkan judul lagu yang sedang diputar
-            songTitleEl.textContent = `Memutar: ${randomSong.title}`;
-            
-            // Atur sumber audio dan mulai mainkan
-            audioPlayer.src = randomSong.src;
-            audioPlayer.play();
-        }
-
-        // --- Event Listener ---
-        // 1. Saat tombol "Putar Lagu Acak" diklik
-        playRandomBtn.addEventListener('click', playRandomSong);
-
-        // 2. Saat lagu saat ini selesai diputar, otomatis putar lagu acak berikutnya
-        audioPlayer.addEventListener('ended', playRandomSong);
-    </script>
-
 </body>
 </html>
